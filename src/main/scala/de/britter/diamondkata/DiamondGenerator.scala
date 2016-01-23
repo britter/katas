@@ -16,11 +16,15 @@
 
 package de.britter.diamondkata
 
+object Diamond {
+  def apply(diamondChar: Char) = new DiamondGenerator(diamondChar).generate
+}
+
 class DiamondGenerator(diamondChar: Char) {
 
   private val alphabet = Vector('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z')
 
-  def generate(): String = {
+  def generate: String = {
     val upperHalfCharacters = alphabet.slice(0, alphabet.indexOf(diamondChar))
 
     val upperLines = for (lineChar <- upperHalfCharacters) yield generateLine(lineChar)
