@@ -20,6 +20,8 @@ object DiamondGenerator {
 
   private val alphabet = Vector('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z')
 
+  def generate(c: Char): String = generateLine(c, c)
+
   def generateLine(lineChar: Char, diamondChar: Char): String = {
     val innerSpacing = alphabet.indexOf(lineChar) * 2 -1
 
