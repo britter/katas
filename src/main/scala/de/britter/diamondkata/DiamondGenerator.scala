@@ -21,21 +21,23 @@ class DiamondGenerator(diamondChar: Char) {
   private val alphabet = Vector('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z')
 
   def generate(): String = {
-    val lines = for (lineChar <- alphabet.slice(0, alphabet.indexOf(diamondChar))) yield generateLine(lineChar)
+    val upperHalfCharacters = alphabet.slice(0, alphabet.indexOf(diamondChar))
 
-    val allLines = (lines :+ generateLine(diamondChar)) ++ lines.reverse
+    val upperLines = for (lineChar <- upperHalfCharacters) yield generateLine(lineChar)
+    val middleLine = generateLine(diamondChar)
+    val allLines = (upperLines :+ middleLine) ++ upperLines.reverse
+
     allLines.mkString(System.lineSeparator())
   }
 
   def generateLine(lineChar: Char): String = {
-    val innerSpacing = alphabet.indexOf(lineChar) * 2 -1
-
-    val diff = alphabet.indexOf(diamondChar) - alphabet.indexOf(lineChar)
+    val innerSpacing = alphabet.indexOf(lineChar) * 2 - 1
+    val outerSpacing = alphabet.indexOf(diamondChar) - alphabet.indexOf(lineChar)
 
     if (innerSpacing > 0)
-      diff.spaces + lineChar + innerSpacing.spaces + lineChar + diff.spaces
+      outerSpacing.spaces + lineChar + innerSpacing.spaces + lineChar + outerSpacing.spaces
     else
-      diff.spaces + lineChar + diff.spaces
+      outerSpacing.spaces + lineChar + outerSpacing.spaces
   }
 
   private implicit class TimesSpaces(i: Int) {
