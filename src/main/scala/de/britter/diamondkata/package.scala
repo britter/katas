@@ -16,7 +16,7 @@
 
 package de.britter
 
-package object diamondkatascala {
+package object diamondkata {
 
   val Traversable = scala.collection.immutable.Traversable
   type Traversable[+A] = scala.collection.immutable.Traversable[A]
