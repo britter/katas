@@ -32,5 +32,12 @@ class DiamondGeneratorTest extends WordSpec with Matchers {
     "generate 'A' for input 'A'" in {
       DiamondGenerator.generate('A') shouldBe "A"
     }
+    
+    "generate a diamond for input 'B'" in {
+      DiamondGenerator.generate('B') shouldBe
+        """ A 
+          |B B
+          | A """.stripMargin
+    }
   }
 }
