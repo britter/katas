@@ -16,18 +16,18 @@
 
 package de.britter.diamondkata
 
-object DiamondGenerator {
+class DiamondGenerator(diamondChar: Char) {
 
   private val alphabet = Vector('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z')
 
-  def generate(diamondChar: Char): String = {
-    val lines = for (lineChar <- alphabet.slice(0, alphabet.indexOf(diamondChar))) yield generateLine(lineChar, diamondChar)
-      
-    val allLines = (lines :+ generateLine(diamondChar, diamondChar)) ++ lines.reverse
+  def generate(): String = {
+    val lines = for (lineChar <- alphabet.slice(0, alphabet.indexOf(diamondChar))) yield generateLine(lineChar)
+
+    val allLines = (lines :+ generateLine(diamondChar)) ++ lines.reverse
     allLines.mkString(System.lineSeparator())
   }
 
-  def generateLine(lineChar: Char, diamondChar: Char): String = {
+  def generateLine(lineChar: Char): String = {
     val innerSpacing = alphabet.indexOf(lineChar) * 2 -1
 
     val diff = alphabet.indexOf(diamondChar) - alphabet.indexOf(lineChar)

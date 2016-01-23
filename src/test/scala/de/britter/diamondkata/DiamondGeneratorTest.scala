@@ -7,34 +7,34 @@ class DiamondGeneratorTest extends WordSpec with Matchers {
   "DiamondGenerator generateLine" should {
 
     "print single line 'A' for character 'A' and target 'A'" in {
-      DiamondGenerator.generateLine('A', 'A') shouldBe "A"
+      new DiamondGenerator('A').generateLine('A') shouldBe "A"
     }
     
     "print ' A ' for character 'A' and target 'B'" in {
-      DiamondGenerator.generateLine('A', 'B') shouldBe " A "
+      new DiamondGenerator('B').generateLine('A') shouldBe " A "
     }
 
     "print '   A   ' for character 'A' and target 'D'" in {
-      DiamondGenerator.generateLine('A', 'D') shouldBe "   A   "
+      new DiamondGenerator('D').generateLine('A') shouldBe "   A   "
     }
     
     "print 'B B' for character 'B' and target B" in {
-      DiamondGenerator.generateLine('B', 'B') shouldBe "B B"
+      new DiamondGenerator('B').generateLine('B') shouldBe "B B"
     }
     
     "print ' B B ' for character 'B' and target 'C'" in {
-      DiamondGenerator.generateLine('B', 'C') shouldBe " B B "
+      new DiamondGenerator('C').generateLine('B') shouldBe " B B "
     }
   }
   
   "DiamondGenerator generate" should {
     
     "generate 'A' for input 'A'" in {
-      DiamondGenerator.generate('A') shouldBe "A"
+      new DiamondGenerator('A').generate shouldBe "A"
     }
     
     "generate a diamond for input 'B'" in {
-      DiamondGenerator.generate('B') shouldBe
+      new DiamondGenerator('B').generate shouldBe
         """ A 
           |B B
           | A """.stripMargin
