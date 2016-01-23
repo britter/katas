@@ -33,10 +33,12 @@ object DiamondGenerator {
     val diff = alphabet.indexOf(diamondChar) - alphabet.indexOf(lineChar)
 
     if (innerSpacing > 0)
-      spaces(diff) + lineChar + spaces(innerSpacing) + lineChar + spaces(diff)
+      diff.spaces + lineChar + innerSpacing.spaces + lineChar + diff.spaces
     else
-      spaces(diff) + lineChar + spaces(diff)
+      diff.spaces + lineChar + diff.spaces
   }
 
-  private def spaces(n: Int) = " " * n
+  private implicit class TimesSpaces(i: Int) {
+    def spaces: String = " " * i
+  }
 }
