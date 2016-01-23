@@ -9,5 +9,10 @@ class DiamondGeneratorTest extends WordSpec with Matchers {
     "print single line 'A' for character 'A' and target 'A'" in {
       DiamondGenerator.generateLine('A', 'A') shouldBe "A"
     }
+    
+    "print ' A ' for character 'A' and target 'B'" in {
+      DiamondGenerator.generateLine('A', 'B') shouldBe " A "
+    }
+
   }
 }

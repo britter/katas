@@ -20,6 +20,9 @@ object DiamondGenerator {
 
   private val alphabet = Vector('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z')
 
-  def generateLine(c: Char, diamondChar: Char): String = ???
+  def generateLine(c: Char, diamondChar: Char): String = {
+    val diff = alphabet.indexOf(diamondChar) - alphabet.indexOf(c)
+    " " * diff + c + " " * diff
+  }
 
 }
