@@ -21,5 +21,9 @@ class DiamondGeneratorTest extends WordSpec with Matchers {
     "print 'B B' for character 'B' and target B" in {
       DiamondGenerator.generateLine('B', 'B') shouldBe "B B"
     }
+    
+    "print ' B B ' for character 'B' and target 'C'" in {
+      DiamondGenerator.generateLine('B', 'C') shouldBe " B B "
+    }
   }
 }
