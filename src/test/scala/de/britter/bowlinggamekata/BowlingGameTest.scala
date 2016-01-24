@@ -39,6 +39,15 @@ class BowlingGameTest extends WordSpec with Matchers with BeforeAndAfterEach {
 
       g.score shouldBe 20
     }
+
+    "calculate bonus points for one spare" in {
+      g.roll(5)
+      g.roll(5) // spare
+      g.roll(3)
+      rollMany(17, 0)
+
+      g.score shouldBe 16
+    }
   }
 
   def rollMany(rolls: Int, pins: Int) = for (i <- 0 until rolls) g.roll(pins) 

@@ -18,8 +18,28 @@ package de.britter.bowlinggamekata
 
 class Game {
 
-  def roll(i: Int): Unit = score += i
+  private val rolls: Array[Int] = Array.ofDim(21)
+  private var currentRoll = 0
 
-  var score: Int = 0
+  def roll(pins: Int): Unit = {
+    rolls(currentRoll) = pins
+    currentRoll += 1
+  }
+
+  def score: Int = {
+    var score = 0
+    var frameIndex = 0
+    for (frame <- 0 until 10) {
+      // spare
+      if (rolls(frameIndex) + rolls(frameIndex + 1) == 10) {
+        score += 10 + rolls(frameIndex + 2)
+        frameIndex += 2
+      } else {
+        score += rolls(frameIndex) + rolls(frameIndex + 1)
+        frameIndex += 2
+      }
+    }
+    score
+  }
 
 }
