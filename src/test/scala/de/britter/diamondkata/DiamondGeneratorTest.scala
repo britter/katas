@@ -35,9 +35,9 @@ class DiamondGeneratorTest extends WordSpec with Matchers {
     
     "generate a diamond for input 'B'" in {
       Diamond('B') shouldBe
-        """ A 
-          |B B
-          | A """.stripMargin
+        """| A 
+           |B B
+           | A """.stripMargin
     }
   }
 }
