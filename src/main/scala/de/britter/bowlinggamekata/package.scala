@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package de.britter.bowling.game
+package de.britter
 
-package object kata {
+package object bowlinggamekata {
 
   val Traversable = scala.collection.immutable.Traversable
   type Traversable[+A] = scala.collection.immutable.Traversable[A]
