@@ -18,8 +18,8 @@ package de.britter.bowlinggamekata
 
 class Game {
 
-  def roll(i: Int): Unit = {}
+  def roll(i: Int): Unit = score += i
 
-  def score: Int = 0
+  var score: Int = 0
 
 }

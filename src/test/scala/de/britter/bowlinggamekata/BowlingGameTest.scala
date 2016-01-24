@@ -28,6 +28,13 @@ class BowlingGameTest extends WordSpec with Matchers {
 
       g.score shouldBe 0
     }
+
+    "calculate 10 points for all 1 game" in {
+      val g = new Game
+      for (i <- 0 until 20) g.roll(1)
+
+      g.score shouldBe 20
+    }
   }
 
 }
