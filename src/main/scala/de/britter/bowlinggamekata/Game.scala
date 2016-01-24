@@ -30,8 +30,7 @@ class Game {
     var score = 0
     var frameIndex = 0
     for (frame <- 0 until 10) {
-      // strike
-      if (rolls(frameIndex) == 10) {
+      if (isStrike(frameIndex)) {
         score += 10 + strikeBonus(frameIndex)
         frameIndex += 1
       } else if (isSpare(frameIndex)) {
@@ -52,4 +51,6 @@ class Game {
   private def strikeBonus(frameIndex: Int) = rolls(frameIndex + 1) + rolls(frameIndex + 2)
 
   private def isSpare(frameIndex: Int) = rolls(frameIndex) + rolls(frameIndex + 1) == 10
+
+  private def isStrike(frameIndex: Int) = rolls(frameIndex) == 10
 }
