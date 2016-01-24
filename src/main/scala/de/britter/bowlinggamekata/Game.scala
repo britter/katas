@@ -31,7 +31,7 @@ class Game {
     var frameIndex = 0
     for (frame <- 0 until 10) {
       // spare
-      if (rolls(frameIndex) + rolls(frameIndex + 1) == 10) {
+      if (isSpare(frameIndex)) {
         score += 10 + rolls(frameIndex + 2)
         frameIndex += 2
       } else {
@@ -42,4 +42,5 @@ class Game {
     score
   }
 
+  private def isSpare(frameIndex: Int) = rolls(frameIndex) + rolls(frameIndex + 1) == 10
 }
