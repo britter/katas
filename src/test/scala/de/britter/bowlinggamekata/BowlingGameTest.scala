@@ -41,7 +41,7 @@ class BowlingGameTest extends WordSpec with Matchers with BeforeAndAfterEach {
     }
 
     "calculate bonus points for one spare" in {
-      rollSpare
+      rollSpare()
       g.roll(3)
       rollMany(17, 0)
 
@@ -49,7 +49,7 @@ class BowlingGameTest extends WordSpec with Matchers with BeforeAndAfterEach {
     }
 
     "calculate bonus points for one strike" in {
-      g.roll(10) // strike
+      rollStrike()
       g.roll(3)
       g.roll(4)
       rollMany(16, 0)
@@ -60,8 +60,10 @@ class BowlingGameTest extends WordSpec with Matchers with BeforeAndAfterEach {
 
   def rollMany(rolls: Int, pins: Int) = for (i <- 0 until rolls) g.roll(pins)
 
-  def rollSpare = {
+  def rollSpare() = {
     g.roll(5)
     g.roll(5)
   }
+  
+  def rollStrike() = g.roll(10)
 }
