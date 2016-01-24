@@ -1,6 +1,8 @@
 # bowling-game-kata #
 
-Welcome to bowling-game-kata!
+Scala implementation of the [bowling game kata by Uncle Bob](http://butunclebob.com/ArticleS.UncleBob.TheBowlingGameKata).
+Each step is represented by one commit. The code is a one to one translation of the Java version of the kata and does
+therefore not use any fancy Scala features.
 
 ## Contribution policy ##
 
