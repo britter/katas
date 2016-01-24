@@ -32,18 +32,24 @@ class Game {
     for (frame <- 0 until 10) {
       // strike
       if (rolls(frameIndex) == 10) {
-        score += 10 + rolls(frameIndex + 1) + rolls(frameIndex+2)
+        score += 10 + strikeBonus(frameIndex)
         frameIndex += 1
       } else if (isSpare(frameIndex)) {
-        score += 10 + rolls(frameIndex + 2)
+        score += 10 + spareBonus(frameIndex)
         frameIndex += 2
       } else {
-        score += rolls(frameIndex) + rolls(frameIndex + 1)
+        score += sumOfBallsInFrame(frameIndex)
         frameIndex += 2
       }
     }
     score
   }
+
+  private def sumOfBallsInFrame(frameIndex: Int): Int = rolls(frameIndex) + rolls(frameIndex + 1)
+
+  private def spareBonus(frameIndex: Int) = rolls(frameIndex + 2)
+
+  private def strikeBonus(frameIndex: Int) = rolls(frameIndex + 1) + rolls(frameIndex + 2)
 
   private def isSpare(frameIndex: Int) = rolls(frameIndex) + rolls(frameIndex + 1) == 10
 }
