@@ -16,25 +16,30 @@
 
 package de.britter.bowlinggamekata
 
-import org.scalatest.{ Matchers, WordSpec }
+import org.scalatest.{BeforeAndAfterEach, Matchers, WordSpec}
 
-class BowlingGameTest extends WordSpec with Matchers {
+class BowlingGameTest extends WordSpec with Matchers with BeforeAndAfterEach {
+
+  var g: Game = null
+
+  override def beforeEach() {
+      g = new Game
+  }
 
   "A Game" should {
 
     "calculate 0 points for gutter game" in {
-      val g = new Game
-      for (i <- 0 until 20) g.roll(0)
+      rollMany(20, 0)
 
       g.score shouldBe 0
     }
 
     "calculate 10 points for all 1 game" in {
-      val g = new Game
-      for (i <- 0 until 20) g.roll(1)
+      rollMany(20, 1)
 
       g.score shouldBe 20
     }
   }
 
+  def rollMany(rolls: Int, pins: Int) = for (i <- 0 until rolls) g.roll(pins) 
 }
