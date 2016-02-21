@@ -20,13 +20,13 @@ class GildedRose(val items: Item*) {
 
   def updateQuality() {
     for (item <- items) {
-      handleItem(item)
+      if (!item.name.equals("Sulfuras, Hand of Ragnaros"))
+        handleItem(item)
     }
   }
 
   private def handleItem(item: Item) = {
-    if (item.name.equals("Aged Brie")
-      || item.name.equals("Sulfuras, Hand of Ragnaros")) {
+    if (item.name.equals("Aged Brie")) {
       if (item.quality < 50) {
         item.quality = item.quality + 1
       }
@@ -44,9 +44,7 @@ class GildedRose(val items: Item*) {
       }
     }
 
-    if (!item.name.equals("Sulfuras, Hand of Ragnaros")) {
-      item.sellIn = item.sellIn - 1
-    }
+    item.sellIn = item.sellIn - 1
 
     if (item.sellIn < 0) {
       if (item.name.equals("Aged Brie")) {
@@ -58,9 +56,7 @@ class GildedRose(val items: Item*) {
           item.quality = item.quality - item.quality
         } else {
           if (item.quality > 0) {
-            if (!item.name.equals("Sulfuras, Hand of Ragnaros")) {
-              item.quality = item.quality - 1
-            }
+            item.quality = item.quality - 1
           }
         }
       }
