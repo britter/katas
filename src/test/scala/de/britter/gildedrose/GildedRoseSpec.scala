@@ -136,5 +136,13 @@ class GildedRoseSpec extends WordSpec with Matchers with BeforeAndAfterEach {
 
       conjured.quality should equal(8)
     }
+
+    "Conjured items reduce quality by 4 if sellIn is zero" in {
+      conjured.sellIn = 0
+
+      app.updateQuality()
+
+      conjured.quality should equal(6)
+    }
   }
 }
