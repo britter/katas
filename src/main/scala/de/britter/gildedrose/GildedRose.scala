@@ -20,18 +20,21 @@ class GildedRose(val items: Item*) {
 
   def updateQuality() {
     for (item <- items) {
-      if (item.name.equals("Aged Brie")) {
-        handleAgedBrie(item)
-      } else if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-        handleBackstagePass(item)
-      } else if (!item.name.equals("Sulfuras, Hand of Ragnaros")) {
-        handleItem(item)
+      if (!item.name.equals("Sulfuras, Hand of Ragnaros")) {
+        item.sellIn = item.sellIn - 1
+
+        if (item.name.equals("Aged Brie")) {
+          handleAgedBrie(item)
+        } else if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+          handleBackstagePass(item)
+        } else {
+          handleItem(item)
+        }
       }
     }
   }
 
   def handleBackstagePass(item: Item): Unit = {
-    item.sellIn = item.sellIn - 1
     if(item.quality < 50) {
       if (item.sellIn > 10) {
         item.quality = item.quality + 1
@@ -46,7 +49,6 @@ class GildedRose(val items: Item*) {
   }
 
   private def handleAgedBrie(item: Item) = {
-    item.sellIn = item.sellIn - 1
     if (item.quality < 50) {
       item.quality = item.quality + 1
       if (item.sellIn < 0) {
@@ -56,7 +58,6 @@ class GildedRose(val items: Item*) {
   }
 
   private def handleItem(item: Item) = {
-    item.sellIn = item.sellIn - 1
     if (item.quality > 0) {
       if(item.sellIn > 0) {
         item.quality = item.quality - 1
