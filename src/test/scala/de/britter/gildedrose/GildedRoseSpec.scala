@@ -75,5 +75,23 @@ class GildedRoseSpec extends WordSpec with Matchers {
 
       app.items(0).quality should equal(50)
     }
+
+    "Sulfuras, Hand of Ragnaros quality never alters" in {
+      val items = Array[Item](new Item("Sulfuras, Hand of Ragnaros", 10, 80))
+
+      val app = new GildedRose(items)
+      app.updateQuality()
+
+      app.items(0).quality should equal(80)
+    }
+
+    "Sulfuras, Hand of Ragnaros sellIn never alters" in {
+      val items = Array[Item](new Item("Sulfuras, Hand of Ragnaros", 10, 80))
+
+      val app = new GildedRose(items)
+      app.updateQuality()
+
+      app.items(0).sellIn should equal(10)
+    }
   }
 }
