@@ -10,5 +10,5 @@ libraryDependencies ++= Vector(
   Library.scalaTest  % "test"
 )
 
-initialCommands := """|import de.britter.gilded.rose
+initialCommands := """|import de.britter.gildedrose
                       |""".stripMargin

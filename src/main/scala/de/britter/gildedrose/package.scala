@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package de.britter.gilded
+package de.britter
 
-package object rose {
+package object gildedrose {
 
   type Traversable[+A] = scala.collection.immutable.Traversable[A]
   type Iterable[+A] = scala.collection.immutable.Iterable[A]
