@@ -18,128 +18,117 @@ package de.britter.gildedrose
 
 import org.scalatest._
 
-class GildedRoseSpec extends WordSpec with Matchers {
+class GildedRoseSpec extends WordSpec with Matchers with BeforeAndAfterEach {
+
+  var app: GildedRose = null
+  var regular, agedBrie, sulfuras, backstagePass: Item = null
+
+  override protected def beforeEach() = {
+    regular = new Item("regular", 10, 10)
+    agedBrie = new Item("Aged Brie", 10, 10)
+    sulfuras = new Item("Sulfuras, Hand of Ragnaros", 10, 80)
+    backstagePass = new Item("Backstage passes to a TAFKAL80ETC concert", 20, 20)
+
+    val items = Array[Item](regular, agedBrie, sulfuras, backstagePass)
+    app = new GildedRose(items)
+  }
 
   "Gilded Rose" should {
 
     "lower the sellIn value" in {
-      val items = Array[Item](new Item("foo", 10, 10))
-
-      val app = new GildedRose(items)
       app.updateQuality()
 
-      app.items(0).sellIn should equal(9)
+      regular.sellIn should equal(9)
     }
 
     "lower the quality value" in {
-      val items = Array[Item](new Item("foo", 10, 10))
-
-      val app = new GildedRose(items)
       app.updateQuality()
 
-      app.items(0).quality should equal(9)
+      regular.quality should equal(9)
     }
 
     "lower the quality twice as fast when sellIn is 0" in {
-      val items = Array[Item](new Item("foo", 0, 10))
+      regular.sellIn = 0
 
-      val app = new GildedRose(items)
       app.updateQuality()
 
       app.items(0).quality should equal(8)
     }
 
     "never lower the quality below 0" in {
-      val items = Array[Item](new Item("foo", 0, 0))
+      regular.quality = 0
 
-      val app = new GildedRose(items)
       app.updateQuality()
 
-      app.items(0).quality should be <= 0
+      regular.quality should be <= 0
     }
 
     "Aged Brie increases quality" in {
-      val items = Array[Item](new Item("Aged Brie", 10, 10))
-
-      val app = new GildedRose(items)
       app.updateQuality()
 
-      app.items(0).quality should equal(11)
+      agedBrie.quality should equal(11)
     }
 
     "Aged Brie's quality can not be higher than 50" in {
-      val items = Array[Item](new Item("Aged Brie", 10, 50))
+      agedBrie.quality = 50
 
-      val app = new GildedRose(items)
       app.updateQuality()
 
-      app.items(0).quality should equal(50)
+      agedBrie.quality should equal(50)
     }
 
     "Sulfuras, Hand of Ragnaros quality never alters" in {
-      val items = Array[Item](new Item("Sulfuras, Hand of Ragnaros", 10, 80))
-
-      val app = new GildedRose(items)
       app.updateQuality()
 
-      app.items(0).quality should equal(80)
+      sulfuras.quality should equal(80)
     }
 
     "Sulfuras, Hand of Ragnaros sellIn never alters" in {
-      val items = Array[Item](new Item("Sulfuras, Hand of Ragnaros", 10, 80))
-
-      val app = new GildedRose(items)
       app.updateQuality()
 
-      app.items(0).sellIn should equal(10)
+      sulfuras.sellIn should equal(10)
     }
 
     "Backstage passes should increase quality by one when more than 10 days are left" in {
-      val items = Array[Item](new Item("Backstage passes to a TAFKAL80ETC concert", 20, 20))
-
-      val app = new GildedRose(items)
       app.updateQuality()
 
-      app.items(0).quality should equal(21)
+      backstagePass.quality should equal(21)
 
       app.updateQuality()
 
-      app.items(0).quality should equal(22)
+      backstagePass.quality should equal(22)
     }
 
     "Backstage passes should increase quality by two when 10 days are left" in {
-      val items = Array[Item](new Item("Backstage passes to a TAFKAL80ETC concert", 10, 20))
-
-      val app = new GildedRose(items)
-      app.updateQuality()
-
-      app.items(0).quality should equal(22)
+      backstagePass.sellIn = 10
 
       app.updateQuality()
 
-      app.items(0).quality should equal(24)
+      backstagePass.quality should equal(22)
+
+      app.updateQuality()
+
+      backstagePass.quality should equal(24)
     }
 
     "Backstage passes should increase quality by three when 5 days are left" in {
-      val items = Array[Item](new Item("Backstage passes to a TAFKAL80ETC concert", 5, 20))
-
-      val app = new GildedRose(items)
-      app.updateQuality()
-
-      app.items(0).quality should equal(23)
+      backstagePass.sellIn = 5
 
       app.updateQuality()
 
-      app.items(0).quality should equal(26)
+      backstagePass.quality should equal(23)
+
+      app.updateQuality()
+
+      backstagePass.quality should equal(26)
     }
 
     "Backstage passes should drop quality zero when no days are left" in {
-      val items = Array[Item](new Item("Backstage passes to a TAFKAL80ETC concert", 0, 20))
+      backstagePass.sellIn = 0
 
-      val app = new GildedRose(items)
       app.updateQuality()
 
-      app.items(0).quality should equal(0)
+      backstagePass.quality should equal(0)
     }
   }
 }
