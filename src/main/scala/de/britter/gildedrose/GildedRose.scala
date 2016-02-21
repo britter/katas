@@ -16,57 +16,52 @@
 
 package de.britter.gildedrose
 
-class GildedRose(val items: Array[Item]) {
+class GildedRose(val items: Item*) {
 
   def updateQuality() {
-    for (i <- 0 until items.length) {
-      if (!items(i).name.equals("Aged Brie")
-        && !items(i).name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-        if (items(i).quality > 0) {
-          if (!items(i).name.equals("Sulfuras, Hand of Ragnaros")) {
-            items(i).quality = items(i).quality - 1
-          }
-        }
+    val itemsToHandle = items.filterNot(_.name == "Sulfuras, Hand of Ragnaros")
+
+    for (item <- itemsToHandle) {
+      item.sellIn -= 1
+      if (item.name.equals("Aged Brie")) {
+        handleAgedBrie(item)
+      } else if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+        handleBackstagePass(item)
       } else {
-        if (items(i).quality < 50) {
-          items(i).quality = items(i).quality + 1
-
-          if (items(i).name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-            if (items(i).sellIn < 11) {
-              if (items(i).quality < 50) {
-                items(i).quality = items(i).quality + 1
-              }
-            }
-
-            if (items(i).sellIn < 6) {
-              if (items(i).quality < 50) {
-                items(i).quality = items(i).quality + 1
-              }
-            }
-          }
-        }
+        handleItem(item)
       }
+    }
+  }
 
-      if (!items(i).name.equals("Sulfuras, Hand of Ragnaros")) {
-        items(i).sellIn = items(i).sellIn - 1
+  def handleBackstagePass(item: Item): Unit = {
+    if (item.quality < 50) {
+      if (item.sellIn > 10) {
+        item.quality += 1
+      } else if (item.sellIn <= 10 && item.sellIn > 5) {
+        item.quality += 2
+      } else if (item.sellIn <= 5 && item.sellIn > 0) {
+        item.quality += 3
+      } else {
+        item.quality = 0
       }
+    }
+  }
 
-      if (items(i).sellIn < 0) {
-        if (!items(i).name.equals("Aged Brie")) {
-          if (!items(i).name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-            if (items(i).quality > 0) {
-              if (!items(i).name.equals("Sulfuras, Hand of Ragnaros")) {
-                items(i).quality = items(i).quality - 1
-              }
-            }
-          } else {
-            items(i).quality = items(i).quality - items(i).quality
-          }
-        } else {
-          if (items(i).quality < 50) {
-            items(i).quality = items(i).quality + 1
-          }
-        }
+  private def handleAgedBrie(item: Item) = {
+    if (item.quality < 50) {
+      item.quality += 1
+      if (item.sellIn < 0) {
+        item.quality += 1
+      }
+    }
+  }
+
+  private def handleItem(item: Item) = {
+    if (item.quality > 0) {
+      if (item.sellIn > 0) {
+        item.quality -= 1
+      } else {
+        item.quality -= 2
       }
     }
   }
