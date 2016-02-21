@@ -1,6 +1,8 @@
 # gilded-rose #
 
-Welcome to gilded-rose!
+My implementation of the Gilded Rose pattern in scala.
+
+I took the scala seed from [emilybache/GildedRose-Refactoring-Kata](https://github.com/emilybache/GildedRose-Refactoring-Kata) as starting point.
 
 ## Contribution policy ##
 
