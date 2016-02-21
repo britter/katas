@@ -20,8 +20,17 @@ class GildedRose(val items: Item*) {
 
   def updateQuality() {
     for (item <- items) {
-      if (!item.name.equals("Sulfuras, Hand of Ragnaros"))
+      if (item.name.equals("Aged Brie")) {
+        item.sellIn = item.sellIn - 1
+        if (item.quality < 50) {
+          item.quality = item.quality + 1
+          if(item.sellIn < 0) {
+            item.quality = item.quality + 1
+          }
+        }
+      } else if (!item.name.equals("Sulfuras, Hand of Ragnaros")) {
         handleItem(item)
+      }
     }
   }
 
