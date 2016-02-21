@@ -93,5 +93,53 @@ class GildedRoseSpec extends WordSpec with Matchers {
 
       app.items(0).sellIn should equal(10)
     }
+
+    "Backstage passes should increase quality by one when more than 10 days are left" in {
+      val items = Array[Item](new Item("Backstage passes to a TAFKAL80ETC concert", 20, 20))
+
+      val app = new GildedRose(items)
+      app.updateQuality()
+
+      app.items(0).quality should equal(21)
+
+      app.updateQuality()
+
+      app.items(0).quality should equal(22)
+    }
+
+    "Backstage passes should increase quality by two when 10 days are left" in {
+      val items = Array[Item](new Item("Backstage passes to a TAFKAL80ETC concert", 10, 20))
+
+      val app = new GildedRose(items)
+      app.updateQuality()
+
+      app.items(0).quality should equal(22)
+
+      app.updateQuality()
+
+      app.items(0).quality should equal(24)
+    }
+
+    "Backstage passes should increase quality by three when 5 days are left" in {
+      val items = Array[Item](new Item("Backstage passes to a TAFKAL80ETC concert", 5, 20))
+
+      val app = new GildedRose(items)
+      app.updateQuality()
+
+      app.items(0).quality should equal(23)
+
+      app.updateQuality()
+
+      app.items(0).quality should equal(26)
+    }
+
+    "Backstage passes should drop quality zero when no days are left" in {
+      val items = Array[Item](new Item("Backstage passes to a TAFKAL80ETC concert", 0, 20))
+
+      val app = new GildedRose(items)
+      app.updateQuality()
+
+      app.items(0).quality should equal(0)
+    }
   }
 }
