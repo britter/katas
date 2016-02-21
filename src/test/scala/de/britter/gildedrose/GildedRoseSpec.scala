@@ -21,15 +21,16 @@ import org.scalatest._
 class GildedRoseSpec extends WordSpec with Matchers with BeforeAndAfterEach {
 
   var app: GildedRose = null
-  var regular, agedBrie, sulfuras, backstagePass: Item = null
+  var regular, agedBrie, sulfuras, backstagePass, conjured: Item = null
 
   override protected def beforeEach() = {
     regular = new Item("regular", 10, 10)
     agedBrie = new Item("Aged Brie", 10, 10)
     sulfuras = new Item("Sulfuras, Hand of Ragnaros", 10, 80)
     backstagePass = new Item("Backstage passes to a TAFKAL80ETC concert", 20, 20)
+    conjured = new Item("Conjured cookie", 10, 10)
 
-    app = new GildedRose(regular, agedBrie, sulfuras, backstagePass)
+    app = new GildedRose(regular, agedBrie, sulfuras, backstagePass, conjured)
   }
 
   "Gilded Rose" should {
@@ -128,6 +129,20 @@ class GildedRoseSpec extends WordSpec with Matchers with BeforeAndAfterEach {
       app.updateQuality()
 
       backstagePass.quality should equal(0)
+    }
+
+    "Conjured items degrade twice as fast" in {
+      app.updateQuality()
+
+      conjured.quality should equal(8)
+    }
+
+    "Conjured items reduce quality by 4 if sellIn is zero" in {
+      conjured.sellIn = 0
+
+      app.updateQuality()
+
+      conjured.quality should equal(6)
     }
   }
 }

@@ -27,6 +27,8 @@ class GildedRose(val items: Item*) {
         handleAgedBrie(item)
       } else if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
         handleBackstagePass(item)
+      } else if (item.name.startsWith("Conjured")) {
+        handleConjured(item)
       } else {
         handleItem(item)
       }
@@ -62,6 +64,16 @@ class GildedRose(val items: Item*) {
         item.quality -= 1
       } else {
         item.quality -= 2
+      }
+    }
+  }
+
+  private def handleConjured(item: Item) = {
+    if (item.quality > 0) {
+      if (item.sellIn > 0) {
+        item.quality -= 2
+      } else {
+        item.quality -= 4
       }
     }
   }
