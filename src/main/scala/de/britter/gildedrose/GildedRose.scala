@@ -19,62 +19,39 @@ package de.britter.gildedrose
 class GildedRose(val items: Item*) {
 
   def updateQuality() {
-    val itemsToHandle = items.filterNot(_.name == "Sulfuras, Hand of Ragnaros")
-
-    for (item <- itemsToHandle) {
-      item.sellIn -= 1
-      if (item.name.equals("Aged Brie")) {
-        handleAgedBrie(item)
-      } else if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-        handleBackstagePass(item)
-      } else if (item.name.startsWith("Conjured")) {
-        handleConjured(item)
-      } else {
-        handleItem(item)
-      }
-    }
-  }
-
-  def handleBackstagePass(item: Item): Unit = {
-    if (item.quality < 50) {
-      if (item.sellIn > 10) {
-        item.quality += 1
-      } else if (item.sellIn <= 10 && item.sellIn > 5) {
+    for (item <- items) {
+      case Item("Sulfuras, Hand of Ragnaros", _, _) =>
+      case item@Item("Aged Brie", sellIn, quality) if quality < 50 && sellIn < 0 => 
+        item.sellIn -= 1
         item.quality += 2
-      } else if (item.sellIn <= 5 && item.sellIn > 0) {
-        item.quality += 3
-      } else {
-        item.quality = 0
-      }
-    }
-  }
-
-  private def handleAgedBrie(item: Item) = {
-    if (item.quality < 50) {
-      item.quality += 1
-      if (item.sellIn < 0) {
+      case item@Item("Aged Brie", sellIn, quality) if quality < 50 && sellIn >= 0 => 
+        item.sellIn -= 1
         item.quality += 1
-      }
-    }
-  }
-
-  private def handleItem(item: Item) = {
-    if (item.quality > 0) {
-      if (item.sellIn > 0) {
-        item.quality -= 1
-      } else {
+      case item@Item("Backstage passes to a TAFKAL80ETC concert", sellIn, quality) if quality < 50 && sellIn > 10 =>
+        item.sellIn -= 1
+        item.quality += 1
+      case item@Item("Backstage passes to a TAFKAL80ETC concert", sellIn, quality) if quality < 50 && sellIn <= 10 && item.sellIn > 5 =>
+        item.sellIn -= 1
+        item.quality += 2
+      case item@Item("Backstage passes to a TAFKAL80ETC concert", sellIn, quality) if quality < 50 && sellIn <= 5 && item.sellIn > 0 =>
+        item.sellIn -= 1
+        item.quality += 3
+      case item@Item("Backstage passes to a TAFKAL80ETC concert", _, _) =>
+        item.sellIn -= 1
+        item.quality = 0
+      case item@Item(name, sellIn, quality) if name.startsWith("Conjured") && quality > 0 && sellIn > 0 =>
+        item.sellIn -= 1
         item.quality -= 2
-      }
-    }
-  }
-
-  private def handleConjured(item: Item) = {
-    if (item.quality > 0) {
-      if (item.sellIn > 0) {
-        item.quality -= 2
-      } else {
+      case item@Item(name, sellIn, quality) if name.startsWith("Conjured") && quality > 0 =>
+        item.sellIn -= 1
         item.quality -= 4
-      }
+      case item@Item(_, sellIn, quality) if quality > 0 && sellIn > 0 =>
+        item.sellIn -= 1
+        item.quality -= 1
+      case item@Item(_, sellIn, quality) if quality > 0 =>
+        item.sellIn -= 1
+        item.quality -= 2
     }
   }
+
 }
