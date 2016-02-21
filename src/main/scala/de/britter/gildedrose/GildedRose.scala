@@ -19,23 +19,22 @@ package de.britter.gildedrose
 class GildedRose(val items: Item*) {
 
   def updateQuality() {
-    for (item <- items) {
-      if (!item.name.equals("Sulfuras, Hand of Ragnaros")) {
-        item.sellIn = item.sellIn - 1
+    val itemsToHandle = items.filterNot(_.name == "Sulfuras, Hand of Ragnaros")
 
-        if (item.name.equals("Aged Brie")) {
-          handleAgedBrie(item)
-        } else if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-          handleBackstagePass(item)
-        } else {
-          handleItem(item)
-        }
+    for (item <- itemsToHandle) {
+      item.sellIn = item.sellIn - 1
+      if (item.name.equals("Aged Brie")) {
+        handleAgedBrie(item)
+      } else if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+        handleBackstagePass(item)
+      } else {
+        handleItem(item)
       }
     }
   }
 
   def handleBackstagePass(item: Item): Unit = {
-    if(item.quality < 50) {
+    if (item.quality < 50) {
       if (item.sellIn > 10) {
         item.quality = item.quality + 1
       } else if (item.sellIn <= 10 && item.sellIn > 5) {
@@ -59,7 +58,7 @@ class GildedRose(val items: Item*) {
 
   private def handleItem(item: Item) = {
     if (item.quality > 0) {
-      if(item.sellIn > 0) {
+      if (item.sellIn > 0) {
         item.quality = item.quality - 1
       } else {
         item.quality = item.quality - 2
