@@ -48,5 +48,14 @@ class GildedRoseSpec extends WordSpec with Matchers {
 
       app.items(0).quality should equal(8)
     }
+
+    "never lower the quality below 0" in {
+      val items = Array[Item](new Item("foo", 0, 0))
+
+      val app = new GildedRose(items)
+      app.updateQuality()
+
+      app.items(0).quality should be <= 0
+    }
   }
 }
