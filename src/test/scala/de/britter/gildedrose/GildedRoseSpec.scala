@@ -29,8 +29,7 @@ class GildedRoseSpec extends WordSpec with Matchers with BeforeAndAfterEach {
     sulfuras = new Item("Sulfuras, Hand of Ragnaros", 10, 80)
     backstagePass = new Item("Backstage passes to a TAFKAL80ETC concert", 20, 20)
 
-    val items = Array[Item](regular, agedBrie, sulfuras, backstagePass)
-    app = new GildedRose(items)
+    app = new GildedRose(regular, agedBrie, sulfuras, backstagePass)
   }
 
   "Gilded Rose" should {

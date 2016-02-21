@@ -16,7 +16,7 @@
 
 package de.britter.gildedrose
 
-class GildedRose(val items: Array[Item]) {
+class GildedRose(val items: Item*) {
 
   def updateQuality() {
     for (i <- 0 until items.length) {
