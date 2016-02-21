@@ -19,8 +19,7 @@ package de.britter.gildedrose
 class GildedRose(val items: Item*) {
 
   def updateQuality() {
-    for (i <- 0 until items.length) {
-      val item = items(i)
+    for (item <- items) {
       if (!item.name.equals("Aged Brie")
         && !item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
         if (item.quality > 0) {
