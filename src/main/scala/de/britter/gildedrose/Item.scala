@@ -16,6 +16,4 @@
 
 package de.britter.gildedrose
 
-class Item(val name: String, var sellIn: Int, var quality: Int) {
-
-}
+case class Item(val name: String, var sellIn: Int, var quality: Int)
