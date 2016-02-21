@@ -66,5 +66,14 @@ class GildedRoseSpec extends WordSpec with Matchers {
 
       app.items(0).quality should equal(11)
     }
+
+    "Aged Brie's quality can not be higher than 50" in {
+      val items = Array[Item](new Item("Aged Brie", 10, 50))
+
+      val app = new GildedRose(items)
+      app.updateQuality()
+
+      app.items(0).quality should equal(50)
+    }
   }
 }
