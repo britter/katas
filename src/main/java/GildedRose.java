@@ -4,15 +4,15 @@ import java.util.List;
 
 public class GildedRose {
 
-	private static List<Item> items = null;
+    private static List<Item> items = null;
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		
+    /**
+     * @param args
+     */
+    public static void main(String[] args) {
+
         System.out.println("OMGHAI!");
-		
+
         items = new ArrayList<Item>();
         items.add(new Item("+5 Dexterity Vest", 10, 20));
         items.add(new Item("Aged Brie", 2, 0));
@@ -22,19 +22,18 @@ public class GildedRose {
         items.add(new Item("Conjured Mana Cake", 3, 6));
 
         updateQuality();
-}
+    }
 
 
-	
-    public static void updateQuality()
-    {
+    public static void updateQuality() {
         for (Item item : items) {
+            if ("Sulfuras, Hand of Ragnaros".equals(item.getName())) {
+                continue;
+            }
             if ((!"Aged Brie".equals(item.getName())) && !"Backstage passes to a TAFKAL80ETC concert".equals(item.getName())) {
                 if (item.getQuality() > 0) {
-                    if (!"Sulfuras, Hand of Ragnaros".equals(item.getName())) {
-                        item.setQuality(item.getQuality() - 1);
-                        System.out.println("Quality -1: " + dump(item));
-                    }
+                    item.setQuality(item.getQuality() - 1);
+                    System.out.println("Quality -1: " + dump(item));
                 }
             } else {
                 if (item.getQuality() < 50) {
@@ -59,19 +58,15 @@ public class GildedRose {
                 }
             }
 
-            if (!"Sulfuras, Hand of Ragnaros".equals(item.getName())) {
-                item.setSellIn(item.getSellIn() - 1);
-                System.out.println("SellIn -1: " + dump(item));
-            }
+            item.setSellIn(item.getSellIn() - 1);
+            System.out.println("SellIn -1: " + dump(item));
 
             if (item.getSellIn() < 0) {
                 if (!"Aged Brie".equals(item.getName())) {
                     if (!"Backstage passes to a TAFKAL80ETC concert".equals(item.getName())) {
                         if (item.getQuality() > 0) {
-                            if (!"Sulfuras, Hand of Ragnaros".equals(item.getName())) {
-                                item.setQuality(item.getQuality() - 1);
-                                System.out.println("Quality -1: " + dump(item));
-                            }
+                            item.setQuality(item.getQuality() - 1);
+                            System.out.println("Quality -1: " + dump(item));
                         }
                     } else {
                         item.setQuality(0);
