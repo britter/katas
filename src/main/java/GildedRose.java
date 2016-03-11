@@ -74,7 +74,7 @@ public class GildedRose {
                             }
                         }
                     } else {
-                        item.setQuality(item.getQuality() - item.getQuality());
+                        item.setQuality(0);
                         System.out.println("Quality -> 0: " + dump(item));
                     }
                 } else {
