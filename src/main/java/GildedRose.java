@@ -70,19 +70,18 @@ public class GildedRose {
                         item.setQuality(item.getQuality() + 1);
                         System.out.println("Quality +1: " + dump(item));
                     }
+                } else if ("Backstage passes to a TAFKAL80ETC concert".equals(item.getName())) {
+                    item.setQuality(0);
+                    System.out.println("Quality -> 0: " + dump(item));
                 } else {
-                    if ("Backstage passes to a TAFKAL80ETC concert".equals(item.getName())) {
-                        item.setQuality(0);
-                        System.out.println("Quality -> 0: " + dump(item));
-                    } else {
-                        if (item.getQuality() > 0) {
-                            item.setQuality(item.getQuality() - 1);
-                            System.out.println("Quality -1: " + dump(item));
-                        }
+                    if (item.getQuality() > 0) {
+                        item.setQuality(item.getQuality() - 1);
+                        System.out.println("Quality -1: " + dump(item));
                     }
                 }
             }
         }
+
     }
 
     private static String dump(Item item) {
