@@ -30,12 +30,7 @@ public class GildedRose {
             if ("Sulfuras, Hand of Ragnaros".equals(item.getName())) {
                 continue;
             }
-            if ((!"Aged Brie".equals(item.getName())) && !"Backstage passes to a TAFKAL80ETC concert".equals(item.getName())) {
-                if (item.getQuality() > 0) {
-                    item.setQuality(item.getQuality() - 1);
-                    System.out.println("Quality -1: " + dump(item));
-                }
-            } else {
+            if (("Aged Brie".equals(item.getName())) || "Backstage passes to a TAFKAL80ETC concert".equals(item.getName())) {
                 if (item.getQuality() < 50) {
                     item.setQuality(item.getQuality() + 1);
                     System.out.println("Quality +1: " + dump(item));
@@ -56,26 +51,31 @@ public class GildedRose {
                         }
                     }
                 }
+            } else {
+                if (item.getQuality() > 0) {
+                    item.setQuality(item.getQuality() - 1);
+                    System.out.println("Quality -1: " + dump(item));
+                }
             }
 
             item.setSellIn(item.getSellIn() - 1);
             System.out.println("SellIn -1: " + dump(item));
 
             if (item.getSellIn() < 0) {
-                if (!"Aged Brie".equals(item.getName())) {
-                    if (!"Backstage passes to a TAFKAL80ETC concert".equals(item.getName())) {
+                if ("Aged Brie".equals(item.getName())) {
+                    if (item.getQuality() < 50) {
+                        item.setQuality(item.getQuality() + 1);
+                        System.out.println("Quality +1: " + dump(item));
+                    }
+                } else {
+                    if ("Backstage passes to a TAFKAL80ETC concert".equals(item.getName())) {
+                        item.setQuality(0);
+                        System.out.println("Quality -> 0: " + dump(item));
+                    } else {
                         if (item.getQuality() > 0) {
                             item.setQuality(item.getQuality() - 1);
                             System.out.println("Quality -1: " + dump(item));
                         }
-                    } else {
-                        item.setQuality(0);
-                        System.out.println("Quality -> 0: " + dump(item));
-                    }
-                } else {
-                    if (item.getQuality() < 50) {
-                        item.setQuality(item.getQuality() + 1);
-                        System.out.println("Quality +1: " + dump(item));
                     }
                 }
             }
