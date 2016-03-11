@@ -37,6 +37,7 @@ public class GildedRose {
                     if (!"Sulfuras, Hand of Ragnaros".equals(items.get(i).getName()))
                     {
                         items.get(i).setQuality(items.get(i).getQuality() - 1);
+                        System.out.println("Quality -1: " + dump(items.get(i)));
                     }
                 }
             }
@@ -53,6 +54,7 @@ public class GildedRose {
                             if (items.get(i).getQuality() < 50)
                             {
                                 items.get(i).setQuality(items.get(i).getQuality() + 1);
+                                System.out.println("Quality +1: " + dump(items.get(i)));
                             }
                         }
 
@@ -61,6 +63,7 @@ public class GildedRose {
                             if (items.get(i).getQuality() < 50)
                             {
                                 items.get(i).setQuality(items.get(i).getQuality() + 1);
+                                System.out.println("Quality +1: " + dump(items.get(i)));
                             }
                         }
                     }
@@ -70,6 +73,7 @@ public class GildedRose {
             if (!"Sulfuras, Hand of Ragnaros".equals(items.get(i).getName()))
             {
                 items.get(i).setSellIn(items.get(i).getSellIn() - 1);
+                System.out.println("SellIn -1: " + dump(items.get(i)));
             }
 
             if (items.get(i).getSellIn() < 0)
@@ -83,12 +87,14 @@ public class GildedRose {
                             if (!"Sulfuras, Hand of Ragnaros".equals(items.get(i).getName()))
                             {
                                 items.get(i).setQuality(items.get(i).getQuality() - 1);
+                                System.out.println("Quality -1: " + dump(items.get(i)));
                             }
                         }
                     }
                     else
                     {
                         items.get(i).setQuality(items.get(i).getQuality() - items.get(i).getQuality());
+                        System.out.println("Quality -> 0: " + dump(items.get(i)));
                     }
                 }
                 else
@@ -96,10 +102,14 @@ public class GildedRose {
                     if (items.get(i).getQuality() < 50)
                     {
                         items.get(i).setQuality(items.get(i).getQuality() + 1);
+                        System.out.println("Quality +1: " + dump(items.get(i)));
                     }
                 }
             }
         }
     }
 
+    private static String dump(Item item) {
+        return String.format("[name:%s;sellIn:%s;quality:%s]", item.name, item.sellIn, item.quality);
+    }
 }
