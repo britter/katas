@@ -43,10 +43,7 @@ public class GildedRose {
                     increaseQuality(item);
                 }
             } else {
-                if (item.getQuality() > 0) {
-                    item.setQuality(item.getQuality() - 1);
-                    System.out.println("Quality -1: " + dump(item));
-                }
+                decreaseQuality(item);
             }
 
             item.setSellIn(item.getSellIn() - 1);
@@ -59,20 +56,19 @@ public class GildedRose {
                     item.setQuality(0);
                     System.out.println("Quality -> 0: " + dump(item));
                 } else {
-                    if (item.getQuality() > 0) {
-                        item.setQuality(item.getQuality() - 1);
-                        System.out.println("Quality -1: " + dump(item));
-                    }
+                    decreaseQuality(item);
                 }
             }
         }
-
     }
 
-    private static void increaseQualityBy() {
-
+    private static void decreaseQuality(final Item item) {
+        if (item.getQuality() > 0) {
+            item.setQuality(item.getQuality() - 1);
+            System.out.println("Quality -1: " + dump(item));
+        }
     }
-
+    
     private static void increaseQuality(final Item item) {
         if (item.getQuality() < 50) {
             item.setQuality(item.getQuality() + 1);
