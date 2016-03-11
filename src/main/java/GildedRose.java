@@ -30,24 +30,27 @@ public class GildedRose {
             if ("Sulfuras, Hand of Ragnaros".equals(item.getName())) {
                 continue;
             }
-            if (("Aged Brie".equals(item.getName())) || "Backstage passes to a TAFKAL80ETC concert".equals(item.getName())) {
+            if (("Aged Brie".equals(item.getName()))) {
+                if (item.getQuality() < 50) {
+                    item.setQuality(item.getQuality() + 1);
+                    System.out.println("Quality +1: " + dump(item));
+                }
+            } else if ("Backstage passes to a TAFKAL80ETC concert".equals(item.getName())) {
                 if (item.getQuality() < 50) {
                     item.setQuality(item.getQuality() + 1);
                     System.out.println("Quality +1: " + dump(item));
 
-                    if ("Backstage passes to a TAFKAL80ETC concert".equals(item.getName())) {
-                        if (item.getSellIn() < 11) {
-                            if (item.getQuality() < 50) {
-                                item.setQuality(item.getQuality() + 1);
-                                System.out.println("Quality +1: " + dump(item));
-                            }
+                    if (item.getSellIn() < 11) {
+                        if (item.getQuality() < 50) {
+                            item.setQuality(item.getQuality() + 1);
+                            System.out.println("Quality +1: " + dump(item));
                         }
+                    }
 
-                        if (item.getSellIn() < 6) {
-                            if (item.getQuality() < 50) {
-                                item.setQuality(item.getQuality() + 1);
-                                System.out.println("Quality +1: " + dump(item));
-                            }
+                    if (item.getSellIn() < 6) {
+                        if (item.getQuality() < 50) {
+                            item.setQuality(item.getQuality() + 1);
+                            System.out.println("Quality +1: " + dump(item));
                         }
                     }
                 }
