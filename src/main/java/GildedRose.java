@@ -46,6 +46,7 @@ public class GildedRose {
                 if (items.get(i).getQuality() < 50)
                 {
                     items.get(i).setQuality(items.get(i).getQuality() + 1);
+                    System.out.println("Quality +1: " + dump(items.get(i)));
 
                     if ("Backstage passes to a TAFKAL80ETC concert".equals(items.get(i).getName()))
                     {
