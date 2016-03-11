@@ -31,28 +31,16 @@ public class GildedRose {
                 continue;
             }
             if (("Aged Brie".equals(item.getName()))) {
-                if (item.getQuality() < 50) {
-                    item.setQuality(item.getQuality() + 1);
-                    System.out.println("Quality +1: " + dump(item));
-                }
+                increaseQuality(item);
             } else if ("Backstage passes to a TAFKAL80ETC concert".equals(item.getName())) {
-                if (item.getQuality() < 50) {
-                    item.setQuality(item.getQuality() + 1);
-                    System.out.println("Quality +1: " + dump(item));
+                increaseQuality(item);
 
-                    if (item.getSellIn() < 11) {
-                        if (item.getQuality() < 50) {
-                            item.setQuality(item.getQuality() + 1);
-                            System.out.println("Quality +1: " + dump(item));
-                        }
-                    }
+                if (item.getSellIn() < 11) {
+                    increaseQuality(item);
+                }
 
-                    if (item.getSellIn() < 6) {
-                        if (item.getQuality() < 50) {
-                            item.setQuality(item.getQuality() + 1);
-                            System.out.println("Quality +1: " + dump(item));
-                        }
-                    }
+                if (item.getSellIn() < 6) {
+                    increaseQuality(item);
                 }
             } else {
                 if (item.getQuality() > 0) {
@@ -66,10 +54,7 @@ public class GildedRose {
 
             if (item.getSellIn() < 0) {
                 if ("Aged Brie".equals(item.getName())) {
-                    if (item.getQuality() < 50) {
-                        item.setQuality(item.getQuality() + 1);
-                        System.out.println("Quality +1: " + dump(item));
-                    }
+                    increaseQuality(item);
                 } else if ("Backstage passes to a TAFKAL80ETC concert".equals(item.getName())) {
                     item.setQuality(0);
                     System.out.println("Quality -> 0: " + dump(item));
@@ -82,6 +67,17 @@ public class GildedRose {
             }
         }
 
+    }
+
+    private static void increaseQualityBy() {
+
+    }
+
+    private static void increaseQuality(final Item item) {
+        if (item.getQuality() < 50) {
+            item.setQuality(item.getQuality() + 1);
+            System.out.println("Quality +1: " + dump(item));
+        }
     }
 
     private static String dump(Item item) {
