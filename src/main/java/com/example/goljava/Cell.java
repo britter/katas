@@ -1,8 +1,8 @@
 package com.example.goljava;
 
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
+
+import com.google.common.collect.ImmutableSet;
 
 public class Cell {
 
@@ -28,17 +28,17 @@ public class Cell {
         return Objects.hash(x, y);
     }
 
-    public Set<Cell> getNeighbours() {
-        Set<Cell> neighbours = new HashSet<>();
+    public ImmutableSet<Cell> getNeighbours() {
+        final ImmutableSet.Builder<Cell> builder = ImmutableSet.builder();
         for (int i = x - 1; i <= x + 1; i++) {
             for (int j = y - 1; j <= y + 1; j++) {
                 final Cell newCell = new Cell(i, j);
                 if(!newCell.equals(this)) {
-                    neighbours.add(newCell);
+                    builder.add(newCell);
                 }
             }
         }
-        return neighbours;
+        return builder.build();
     }
 
     @Override

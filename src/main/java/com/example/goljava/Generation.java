@@ -1,30 +1,24 @@
 package com.example.goljava;
 
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-import com.google.common.collect.Multimap;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 
 public class Generation {
 
     public static final Generation EMPTY = new Generation();
 
-    private final Set<Cell> livingCells = new HashSet<>();
+    private final ImmutableSet<Cell> livingCells;
     
     public Generation(final Cell... cells) {
-        for (Cell cell : cells) {
-            livingCells.add(cell);
-        }
+        livingCells = ImmutableSet.copyOf(cells);
     }
 
     private Generation(Set<Cell> newGeneration) {
-        livingCells.addAll(newGeneration);
+        livingCells = ImmutableSet.copyOf(newGeneration);
     }
 
     public Generation nextGeneration() {
